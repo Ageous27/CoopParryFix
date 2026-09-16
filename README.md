@@ -2,15 +2,25 @@
 
 Valheim 1.0 plugin. **One DLL** for clients and the dedicated server.
 
-When this client owns the attacker, perfect parry stays the vanilla **250ms** window. When someone else simulates the mob, CoopParryFix measures `you → server → owner PC → server → you` and adds half of that RTT, plus owner hitch above 33ms.
+## The problem
 
-Steam `GetNetStats` ping is often **0** on a Steam dedicated server. That is not "no delay." Owner-path ping still works in that case.
+Vanilla perfect parry is **250ms**, timed on your PC when you raise the shield.
+
+In co-op the mob is often simulated on **someone else’s PC** (the owner), not yours. Their attack has to travel `owner → server → you` before your client can count the parry. That extra hop is why a parry that would have worked in solo can miss online.
+
+Steam ping only measures `you ↔ server`. It does not include the owner’s hop, and on a Steam dedicated server it is often **0**. That is not “no delay.”
+
+## What this mod does
+
+If **you** own the attacker, nothing changes: still **250ms**.
+
+If you do not, CoopParryFix pings the owner on the same round trip as combat (`you → server → owner → server → you`), takes **half** of that as the one-way delay, adds hitch if the owner’s frame time is above 33ms, and widens the window by that amount. A shield raise timed like vanilla still lands when the hit RPC is late.
 
 Install on the dedicated server and every client for best results. If CoopParryFix is missing on a client and/or the server, pings time out and the parrying client falls back (`GetNetStats` if ping > 0, otherwise a 40ms floor). Blocking still works; the window is just a coarser guess.
 
 Compatible with [SmoothServer](https://github.com/MJensen01/SmoothServer). Does not use `SS_Ping`. Owner-path delay uses `CPF_Ping` / `CPF_Pong`.
 
-## What it adds
+## Details
 
 Vanilla check: `m_blockTimer < 0.25`.
 
