@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.4.1
+- CoopParryFix writes `BepInEx/plugins/Ageous27-CoopParryFix/CoopParryFix.log` (next to the DLL), and still mirrors lines into BepInEx `LogOutput.log`.
+
 ## 0.4.0
 - Same DLL on dedicated server and clients. Routed `CPF_Ping` / `CPF_Pong` to `attacker.GetOwner()` measures you→server→owner→server→you.
 - Remote-owned parry window uses max RTT in a 5s window (half, plus hitch above 33ms). Debug Logs default on.

@@ -1,6 +1,6 @@
 {
   "name": "CoopParryFix",
-  "version_number": "0.4.0",
+  "version_number": "0.4.1",
   "website_url": "https://github.com/Ageous27/CoopParryFix",
   "description": "Keeps vanilla 250ms parry when you own the attacker; otherwise compensates you→server→owner ping. Same DLL on server and clients.",
   "dependencies": [

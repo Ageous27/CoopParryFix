@@ -26,6 +26,8 @@ Requires [BepInExPack Valheim](https://thunderstore.io/c/valheim/p/denikson/BepI
 
 Drop `CoopParryFix.dll` from the [GitHub release zip](https://github.com/Ageous27/CoopParryFix/releases) into `BepInEx/plugins` on the **dedicated server and every client**. One file, not two. Restart after replacing the DLL.
 
+Combat / ping debug lines go to `BepInEx/plugins/Ageous27-CoopParryFix/CoopParryFix.log` (and are also copied into `BepInEx/LogOutput.log`).
+
 ## Config
 
 `BepInEx/config/Ageous.CoopParryFix.cfg` after first launch.

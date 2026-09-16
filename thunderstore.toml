@@ -4,7 +4,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "Ageous27"
 name = "CoopParryFix"
-versionNumber = "0.4.0"
+versionNumber = "0.4.1"
 description = "Keeps vanilla 250ms parry when you own the attacker; otherwise compensates you→server→owner ping. Same DLL on server and clients."
 websiteUrl = "https://github.com/Ageous27/CoopParryFix"
 containsNsfwContent = false

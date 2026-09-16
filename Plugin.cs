@@ -1,6 +1,5 @@
 using BepInEx;
 using BepInEx.Bootstrap;
-using BepInEx.Logging;
 using HarmonyLib;
 
 namespace CoopParryFix;
@@ -11,17 +10,17 @@ public class Plugin : BaseUnityPlugin
 {
     public const string ModGUID = "Ageous.CoopParryFix";
     public const string ModName = "CoopParryFix";
-    public const string ModVersion = "0.4.0";
+    public const string ModVersion = "0.4.1";
     public const string SmoothServerGUID = "Nosferatu.SmoothServer";
 
     internal static Plugin Instance = null!;
-    internal static ManualLogSource Log = null!;
+    internal static PluginLog Log = null!;
     internal static Harmony Harmony = null!;
 
     private void Awake()
     {
         Instance = this;
-        Log = Logger;
+        Log = new PluginLog(Logger, PluginLogPath());
         ModConfig.Bind(Config);
         Harmony = new Harmony(ModGUID);
         Harmony.PatchAll();
@@ -58,5 +57,22 @@ public class Plugin : BaseUnityPlugin
     private void OnDestroy()
     {
         Harmony?.UnpatchSelf();
+        Log?.Close();
+    }
+
+    private string PluginLogPath()
+    {
+        try
+        {
+            string? dir = Path.GetDirectoryName(Info.Location);
+            if (!string.IsNullOrEmpty(dir))
+                return Path.Combine(dir, "CoopParryFix.log");
+        }
+        catch
+        {
+            // Fall through to the TMM plugin folder name.
+        }
+
+        return Path.Combine(Paths.PluginPath, "Ageous27-CoopParryFix", "CoopParryFix.log");
     }
 }
