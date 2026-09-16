@@ -6,8 +6,6 @@ Every client needs the DLL. Parry is decided on the owning client, not on the de
 
 Compatible with [SmoothServer](https://github.com/MJensen01/SmoothServer). CoopParryFix does not change ZDO ownership, send cadence, compression, or interpolation. If SmoothServer is loaded it logs that and leaves those jobs alone.
 
-Previously named ZoneParry. Remove any old `ZoneParry.dll` so both mods do not patch `BlockAttack`.
-
 ## What it adds
 
 Vanilla check: `m_blockTimer < 0.25`.
