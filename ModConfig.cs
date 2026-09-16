@@ -28,13 +28,13 @@ internal static class ModConfig
     {
         Enabled = config.Bind("General", "Enabled", true,
             "If off, the vanilla 250ms parry window is left unchanged.");
-        DebugLogs = config.Bind("General", "Debug Logs", false,
-            "Log every blocked hit: player count, ping, jitter, and the resulting parry window.");
+        DebugLogs = config.Bind("General", "Debug Logs", true,
+            "Log every blocked hit: owner, ping, jitter, and the resulting parry window. Default on for new installs.");
 
-        MillisecondsPerPlayer = config.Bind("Parry", "Milliseconds Per Player", 50,
-            "Added to the parry window for each billed player in the same area.");
+        MillisecondsPerPlayer = config.Bind("Parry", "Milliseconds Per Player", 0,
+            "Extra ms per billed nearby player. Default 0 (vanilla solo timing). SmoothServer already shortens ownership handoff; set 50 only if you want the old crowd extra on top of latency.");
         IgnoreFirstPlayer = config.Bind("Parry", "Ignore First Player", true,
-            "If on (default), you alone keep the vanilla 250ms crowd bonus. Each additional player in the area adds Milliseconds Per Player.");
+            "If on (default), you alone keep no crowd extra. Each additional player in the area adds Milliseconds Per Player.");
         MaxBonusMilliseconds = config.Bind("Parry", "Max Bonus Milliseconds", 500,
             "Cap on extra parry time beyond the vanilla 250ms (crowd + latency combined). 0 = no cap.");
 
@@ -44,7 +44,7 @@ internal static class ModConfig
             "Only used when Grouping is Radius.");
 
         CompensateLatency = config.Bind("Latency", "Compensate Latency", true,
-            "Add ping/jitter so a vanilla-timed parry still counts when the hit RPC is late (slow internet or a hitching chunk owner).");
+            "When this client does not own the attacker, add ping/jitter so a vanilla-timed parry still counts. Locally owned attackers stay at 250ms. Does not change ZDO ownership (leave that to SmoothServer / CombatOwner).");
         PingScale = config.Bind("Latency", "Ping Scale", 0.5f,
             "Fraction of measured RTT added to the window. 0.5 = one-way delay. 1.0 = full round trip.");
         JitterScale = config.Bind("Latency", "Jitter Scale", 1f,

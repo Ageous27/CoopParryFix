@@ -11,17 +11,17 @@ internal static class BlockAttackPatch
         AccessTools.Method(typeof(ParryWindow), nameof(ParryWindow.GetSeconds))
         ?? throw new InvalidOperationException("CoopParryFix could not find ParryWindow.GetSeconds");
 
-    private static void Prefix(Humanoid __instance)
+    private static void Prefix(Humanoid __instance, Character attacker)
     {
         if (!ModConfig.DebugLogs.Value || !__instance)
             return;
 
         try
         {
-            // GetCurrentBlocker is private at runtime. Direct calls compiled against
-            // the publicized DLL throw MethodAccessException on the live game.
+            bool localOwner = attacker && attacker.IsOwner();
+            string attackerName = attacker ? attacker.name : "null";
             Plugin.Log.LogInfo(
-                $"BlockAttack {__instance.name} isPlayer={__instance.IsPlayer()} blocking={__instance.IsBlocking()}");
+                $"BlockAttack {__instance.name} isPlayer={__instance.IsPlayer()} blocking={__instance.IsBlocking()} attacker={attackerName} localOwner={localOwner}");
         }
         catch (Exception ex)
         {
@@ -38,6 +38,7 @@ internal static class BlockAttackPatch
             {
                 replaced = true;
                 yield return new CodeInstruction(OpCodes.Ldarg_0);
+                yield return new CodeInstruction(OpCodes.Ldarg_2);
                 yield return new CodeInstruction(OpCodes.Call, GetWindow);
                 continue;
             }

@@ -1,8 +1,8 @@
 {
   "name": "CoopParryFix",
-  "version_number": "0.2.2",
+  "version_number": "0.3.0",
   "website_url": "https://github.com/Ageous27/CoopParryFix",
-  "description": "Widens the perfect-parry window for nearby players and for measured ping/jitter so client parries still feel vanilla under lag.",
+  "description": "Keeps the vanilla 250ms parry when you own the attacker; widens it by ping/jitter when the hit RPC is late.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2350"
   ]

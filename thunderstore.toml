@@ -4,8 +4,8 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "Ageous27"
 name = "CoopParryFix"
-versionNumber = "0.2.2"
-description = "Widens the perfect-parry window for nearby players and for measured ping/jitter so client parries still feel vanilla under lag."
+versionNumber = "0.3.0"
+description = "Keeps the vanilla 250ms parry when you own the attacker; widens it by ping/jitter when the hit RPC is late."
 websiteUrl = "https://github.com/Ageous27/CoopParryFix"
 containsNsfwContent = false
 

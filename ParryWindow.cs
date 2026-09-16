@@ -5,20 +5,25 @@ internal static class ParryWindow
     internal const float VanillaSeconds = 0.25f;
     internal const float MaxWindowSeconds = 1f;
 
-    internal static float GetSeconds(Humanoid humanoid)
+    internal static float GetSeconds(Humanoid blocker, Character attacker)
     {
         try
         {
             if (!ModConfig.Enabled.Value)
                 return VanillaSeconds;
 
-            if (!humanoid || !humanoid.IsPlayer())
+            if (!blocker || !blocker.IsPlayer())
                 return VanillaSeconds;
 
-            int count = CountPlayersAt(humanoid.transform.position);
+            int count = CountPlayersAt(blocker.transform.position);
             int billed = ModConfig.IgnoreFirstPlayer.Value ? Math.Max(0, count - 1) : Math.Max(0, count);
             float crowd = billed * (ModConfig.MillisecondsPerPlayer.Value / 1000f);
-            float latency = LatencySampler.GetBonusSeconds();
+
+            bool localOwner = attacker && attacker.IsOwner();
+            float latency = 0f;
+            if (!localOwner)
+                latency = LatencySampler.GetBonusSeconds();
+
             float bonus = crowd + latency;
             int maxMs = ModConfig.MaxBonusMilliseconds.Value;
             if (maxMs > 0)
@@ -31,8 +36,9 @@ internal static class ParryWindow
 
             if (ModConfig.DebugLogs.Value)
             {
+                string attackerName = attacker ? attacker.name : "null";
                 Plugin.Log.LogInfo(
-                    $"parry window {window * 1000f:0}ms | players={count} billed={billed} crowd={crowd * 1000f:0}ms | ping={LatencySampler.LastPingMs}ms ema={LatencySampler.EmaPingMs:0} jitter={LatencySampler.JitterMs:0} q={LatencySampler.LastRemoteQuality:0.00}/{LatencySampler.LastLocalQuality:0.00} latency={latency * 1000f:0}ms");
+                    $"parry window {window * 1000f:0}ms | attacker={attackerName} localOwner={localOwner} | players={count} billed={billed} crowd={crowd * 1000f:0}ms | ping={LatencySampler.LastPingMs}ms ema={LatencySampler.EmaPingMs:0} jitter={LatencySampler.JitterMs:0} q={LatencySampler.LastRemoteQuality:0.00}/{LatencySampler.LastLocalQuality:0.00} latency={latency * 1000f:0}ms");
             }
 
             return window;

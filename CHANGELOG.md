@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+- Latency bonus is 0 when this client owns the attacker (`Character.IsOwner()`). Remote-owned hits still use `ZNet.GetNetStats`.
+- Crowd extra defaults to 0ms so nearby players do not make parries easier than solo. Set `Milliseconds Per Player` to 50 for the old behavior.
+- Soft-detects SmoothServer (`Nosferatu.SmoothServer`) and does not duplicate its net/ownership work.
+- Debug Logs default on for new config files.
+
 ## 0.2.2
 - Renamed the mod to CoopParryFix (was ZoneParry). New GUID `Ageous.CoopParryFix`; remove the old `ZoneParry.dll`.
 - Debug BlockAttack prefix no longer calls private `Humanoid.GetCurrentBlocker()` (MethodAccessException on the live assembly).
