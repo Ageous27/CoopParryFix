@@ -1,0 +1,33 @@
+[config]
+schemaVersion = "0.0.1"
+
+[package]
+namespace = "Ageous27"
+name = "CoopParryFix"
+versionNumber = "0.2.2"
+description = "Widens the perfect-parry window for nearby players and for measured ping/jitter so client parries still feel vanilla under lag."
+websiteUrl = "https://github.com/Ageous27/CoopParryFix"
+containsNsfwContent = false
+
+[package.dependencies]
+denikson-BepInExPack_Valheim = "5.4.2350"
+
+[build]
+icon = "./icon.png"
+readme = "./README.md"
+outdir = "./build"
+
+[[build.copy]]
+source = "./bin/Release/CoopParryFix.dll"
+target = "/"
+
+[[build.copy]]
+source = "./CHANGELOG.md"
+target = "/"
+
+[publish]
+repository = "https://thunderstore.io"
+communities = ["valheim"]
+
+[publish.categories]
+valheim = ["mods", "combat", "client-side"]

@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AssemblyName>CoopParryFix</AssemblyName>
+    <RootNamespace>CoopParryFix</RootNamespace>
+    <Version>0.2.2</Version>
+    <BepInExPath>C:\Users\User\AppData\Roaming\Thunderstore Mod Manager\DataFolder\Valheim\profiles\Valheim Moded\BepInEx</BepInExPath>
+    <GamePath>D:\Program Files\Steam\steamapps\common\Valheim</GamePath>
+    <ManagedPath>$(GamePath)\valheim_Data\Managed</ManagedPath>
+    <PublicizedPath>C:\Users\User\Projects\Valheim10Patches\libs\publicized</PublicizedPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(BepInExPath)\core\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="BepInEx">
+      <HintPath>$(BepInExPath)\core\BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="assembly_valheim">
+      <HintPath>$(PublicizedPath)\assembly_valheim_publicized.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="assembly_utils">
+      <HintPath>$(PublicizedPath)\assembly_utils_publicized.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ManagedPath)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedPath)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>
