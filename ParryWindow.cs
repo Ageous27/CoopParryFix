@@ -15,16 +15,25 @@ internal static class ParryWindow
             if (!blocker || !blocker.IsPlayer())
                 return VanillaSeconds;
 
+            OwnerPing.NoteAttacker(attacker);
+
             int count = CountPlayersAt(blocker.transform.position);
             int billed = ModConfig.IgnoreFirstPlayer.Value ? Math.Max(0, count - 1) : Math.Max(0, count);
             float crowd = billed * (ModConfig.MillisecondsPerPlayer.Value / 1000f);
 
             bool localOwner = attacker && attacker.IsOwner();
-            float latency = 0f;
-            if (!localOwner)
-                latency = LatencySampler.GetBonusSeconds();
+            LatencyBonus latency;
+            if (localOwner)
+            {
+                latency = new LatencyBonus { Source = "local-owner", Seconds = 0f };
+                try { latency.OwnerUid = attacker!.GetOwner(); } catch { /* destroyed */ }
+            }
+            else
+            {
+                latency = OwnerPing.GetBonus(attacker);
+            }
 
-            float bonus = crowd + latency;
+            float bonus = crowd + latency.Seconds;
             int maxMs = ModConfig.MaxBonusMilliseconds.Value;
             if (maxMs > 0)
                 bonus = Mathf.Min(bonus, maxMs / 1000f);
@@ -38,7 +47,7 @@ internal static class ParryWindow
             {
                 string attackerName = attacker ? attacker.name : "null";
                 Plugin.Log.LogInfo(
-                    $"parry window {window * 1000f:0}ms | attacker={attackerName} localOwner={localOwner} | players={count} billed={billed} crowd={crowd * 1000f:0}ms | ping={LatencySampler.LastPingMs}ms ema={LatencySampler.EmaPingMs:0} jitter={LatencySampler.JitterMs:0} q={LatencySampler.LastRemoteQuality:0.00}/{LatencySampler.LastLocalQuality:0.00} latency={latency * 1000f:0}ms");
+                    $"parry window {window * 1000f:0}ms | attacker={attackerName} localOwner={localOwner} ownerUid={latency.OwnerUid} source={latency.Source} rttLast={latency.RttLastMs:0} rttStat={latency.RttStatMs:0} hitch={latency.HitchStatMs:0} | players={count} billed={billed} crowd={crowd * 1000f:0}ms netstats={NetStats.LastPingMs}ms latency={latency.Seconds * 1000f:0}ms");
             }
 
             return window;

@@ -11,7 +11,7 @@ public class Plugin : BaseUnityPlugin
 {
     public const string ModGUID = "Ageous.CoopParryFix";
     public const string ModName = "CoopParryFix";
-    public const string ModVersion = "0.3.0";
+    public const string ModVersion = "0.4.0";
     public const string SmoothServerGUID = "Nosferatu.SmoothServer";
 
     internal static Plugin Instance = null!;
@@ -26,7 +26,8 @@ public class Plugin : BaseUnityPlugin
         Harmony = new Harmony(ModGUID);
         Harmony.PatchAll();
         LogSmoothServerCompat();
-        Log.LogInfo($"{ModName} {ModVersion} loaded. Vanilla 250ms when you own the attacker; otherwise ping/jitter compensation.");
+        string side = Application.isBatchMode ? "dedicated server" : "client";
+        Log.LogInfo($"{ModName} {ModVersion} loaded ({side}, same DLL). Vanilla 250ms when you own the attacker. Otherwise CPF_Ping to the owner (install on server and all clients for best results; missing peers fall back).");
     }
 
     private static void LogSmoothServerCompat()
@@ -34,7 +35,7 @@ public class Plugin : BaseUnityPlugin
         try
         {
             if (Chainloader.PluginInfos != null && Chainloader.PluginInfos.ContainsKey(SmoothServerGUID))
-                Log.LogInfo("SmoothServer detected: leaving net/ownership to it. CoopParryFix only widens the parry window when this client does not own the attacker.");
+                Log.LogInfo("SmoothServer detected: CoopParryFix does not use SS_Ping. Owner-path delay uses CPF_Ping/CPF_Pong.");
         }
         catch (Exception ex)
         {
@@ -46,7 +47,7 @@ public class Plugin : BaseUnityPlugin
     {
         try
         {
-            LatencySampler.Tick();
+            OwnerPing.Tick();
         }
         catch (Exception ex)
         {

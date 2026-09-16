@@ -1,8 +1,8 @@
 {
   "name": "CoopParryFix",
-  "version_number": "0.3.0",
+  "version_number": "0.4.0",
   "website_url": "https://github.com/Ageous27/CoopParryFix",
-  "description": "Keeps the vanilla 250ms parry when you own the attacker; widens it by ping/jitter when the hit RPC is late.",
+  "description": "Keeps vanilla 250ms parry when you own the attacker; otherwise compensates you→server→owner ping. Same DLL on server and clients.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2350"
   ]

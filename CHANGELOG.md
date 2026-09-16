@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+- Same DLL on dedicated server and clients. Routed `CPF_Ping` / `CPF_Pong` to `attacker.GetOwner()` measures you→server→owner→server→you.
+- Remote-owned parry window uses max RTT in a 5s window (half, plus hitch above 33ms). Debug Logs default on.
+- Missing CoopParryFix on a client or the server: ping times out and falls back to GetNetStats or a 40ms floor. Does not break blocking.
+
 ## 0.3.0
 - Latency bonus is 0 when this client owns the attacker (`Character.IsOwner()`). Remote-owned hits still use `ZNet.GetNetStats`.
 - Crowd extra defaults to 0ms so nearby players do not make parries easier than solo. Set `Milliseconds Per Player` to 50 for the old behavior.

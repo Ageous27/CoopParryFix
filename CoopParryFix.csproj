@@ -8,7 +8,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AssemblyName>CoopParryFix</AssemblyName>
     <RootNamespace>CoopParryFix</RootNamespace>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <BepInExPath>C:\Users\User\AppData\Roaming\Thunderstore Mod Manager\DataFolder\Valheim\profiles\Valheim Moded\BepInEx</BepInExPath>
     <GamePath>D:\Program Files\Steam\steamapps\common\Valheim</GamePath>
     <ManagedPath>$(GamePath)\valheim_Data\Managed</ManagedPath>

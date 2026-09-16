@@ -4,8 +4,8 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "Ageous27"
 name = "CoopParryFix"
-versionNumber = "0.3.0"
-description = "Keeps the vanilla 250ms parry when you own the attacker; widens it by ping/jitter when the hit RPC is late."
+versionNumber = "0.4.0"
+description = "Keeps vanilla 250ms parry when you own the attacker; otherwise compensates you→server→owner ping. Same DLL on server and clients."
 websiteUrl = "https://github.com/Ageous27/CoopParryFix"
 containsNsfwContent = false
 
@@ -30,4 +30,4 @@ repository = "https://thunderstore.io"
 communities = ["valheim"]
 
 [publish.categories]
-valheim = ["mods", "combat", "client-side"]
+valheim = ["mods", "combat", "client-side", "server-side"]
